@@ -6,9 +6,9 @@ using System;
 
 namespace MLA.OrderManagement.Infrustructure.Persistance.Configuration
 {
-    public class LayersConfiguration : IEntityTypeConfiguration<Layers>
+    public class LayersConfiguration : IEntityTypeConfiguration<Lawyers>
     {
-        public void Configure(EntityTypeBuilder<Layers> builder)
+        public void Configure(EntityTypeBuilder<Lawyers> builder)
         {
            
         }

@@ -28,7 +28,7 @@ namespace MLA.OrderManagement.Infrustructure.Persistance
 
         public DbSet<Clients> Clients { get; set; }
         public DbSet<Orders> Orders { get; set ; }
-        public DbSet<Layers> Layers { get; set ; }
+        public DbSet<Lawyers> Layers { get; set ; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

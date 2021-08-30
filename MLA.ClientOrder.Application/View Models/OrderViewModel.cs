@@ -16,8 +16,8 @@ namespace MLA.ClientOrder.Application.View_Models
     {
         public string IdustrySector { get; set; }
         public ClientDto ClientDto { get; set; }
-        public LayersDto LeadLayer { get; set; }
-        public List<LayersDto> OtherLayers { get; set; }
+        public LawyersDto LeadLayer { get; set; }
+        public List<LawyersDto> OtherLayers { get; set; }
         public bool IsLawFirmInvolved { get; set; }
         public bool CroossJudiciaryExistt { get; set; }
         public List<LawFirmDto> LawFirmInvolved { get; set; }
@@ -37,8 +37,8 @@ namespace MLA.ClientOrder.Application.View_Models
         {
             this.LawFirmInvolved = mapper.Map<List<LawFirmDto>>(orders.LawFirmInvolved);
             this.CrossJudiciaries = orders.CrossJudiciaries.Select(x => x.Judiciaries).ToList();
-            this.LeadLayer = mapper.Map<LayersDto>(orders.LeadLayer);
-            this.OtherLayers = mapper.Map<List<LayersDto>>(orders.OtherLayers);
+            this.LeadLayer = mapper.Map<LawyersDto>(orders.LeadLayer);
+            this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.OtherLayers);
             this.ClientDto = mapper.Map<ClientDto>(orders.Client);
         }
     }

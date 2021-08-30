@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 
 namespace MLA.ClientOrder.Application.Features.Layer.Dto
 {
-    public class LayersDto : IMapFrom<Layers>, IMapTo<Layers>
+    public class LawyersDto : IMapFrom<Lawyers>, IMapTo<Lawyers>
     {
         public Guid guid { get; set; } 
         public string firstName { get; set; }
         public string lastName { get; set; }
+        public string role { get; set; }
 
         public void Mappings(Profile profile)
         {
-            profile.CreateMap<LayersDto, Layers>();
-            profile.CreateMap<List<LayersDto>, List<Layers>>();
+            profile.CreateMap<LawyersDto, Lawyers>();
+            profile.CreateMap<List<LawyersDto>, List<Lawyers>>();
 
-            profile.CreateMap<Layers, LayersDto>();
-            profile.CreateMap<List<Layers>, List<LayersDto>>();
+            profile.CreateMap<Lawyers, LawyersDto>();
+            profile.CreateMap<List<Lawyers>, List<LawyersDto>>();
         }
     }
 }

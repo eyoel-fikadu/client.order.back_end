@@ -11,8 +11,8 @@ namespace MLA.ClientOrder.Domain.Entities
     {
         public Clients Client { get; set; }
         public string IdustrySector { get; set; }
-        public Layers LeadLayer { get; set; }
-        public List<Layers> OtherLayers { get; set; }
+        public Lawyers LeadLayer { get; set; }
+        public List<Lawyers> OtherLayers { get; set; }
         public bool IsLawFirmInvolved { get; set; }
         public bool CroossJudiciaryExistt { get; set; }
         public List<LawFirmInvolved> LawFirmInvolved { get; set; }
