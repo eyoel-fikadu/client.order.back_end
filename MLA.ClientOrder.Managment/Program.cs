@@ -25,7 +25,7 @@ namespace MLA.ClientOrder.Managment
 
                     if (context.Database.IsSqlServer())
                     {
-                        context.Database.Migrate();
+                        //context.Database.Migrate();
                     }
 
                     //var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
