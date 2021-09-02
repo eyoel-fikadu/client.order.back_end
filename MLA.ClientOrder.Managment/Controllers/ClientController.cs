@@ -4,6 +4,7 @@ using MLA.ClientOrder.Application.Features.Client.Command;
 using MLA.ClientOrder.Application.Model;
 using MLA.ClientOrder.Application.View_Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static MLA.ClientOrder.Application.Features.Client.Command.UpdateClient;
 using static MLA.ClientOrder.Application.Features.Client.Query.GetAllClient;
@@ -14,10 +15,17 @@ namespace MLA.ClientOrder.API.Controllers
     public class ClientController : ApiControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<PaginatedList<ClientViewModel>>> GetTodoItemsWithPagination([FromQuery] GetAllClientPaginatedCommand query)
+        public async Task<ActionResult<PaginatedList<ClientViewModel>>> GetClientsWithPagination([FromQuery] GetAllClientPaginatedCommand query)
         {
             return await Mediator.Send(query);
         }
+
+        [HttpGet("listAll")]
+        public async Task<ActionResult<List<ClientViewModel>>> GetClientsList()
+        {
+            return await Mediator.Send(new GetAllClientCommand());
+        }
+
 
         [HttpGet("{guid}")]
         public async Task<ActionResult<ClientViewModel>> GetClientById(Guid guid)

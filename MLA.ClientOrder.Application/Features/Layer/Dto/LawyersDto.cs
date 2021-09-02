@@ -11,7 +11,7 @@ namespace MLA.ClientOrder.Application.Features.Layer.Dto
 {
     public class LawyersDto : IMapFrom<Lawyers>, IMapTo<Lawyers>
     {
-        public Guid guid { get; set; } 
+        public Guid id { get; set; } 
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string role { get; set; }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Application.Common.Mappings;
 using MLA.ClientOrder.Application.Model;
@@ -19,11 +20,11 @@ namespace MLA.ClientOrder.Application.Features.Client.Query
             public int PageSize { get; set; } = 10;
         }
 
-        public class GetAllClientHandler : IRequestHandler<GetAllClientPaginatedCommand, PaginatedList<ClientViewModel>>
+        public class GetAllClientPaginatedHandler : IRequestHandler<GetAllClientPaginatedCommand, PaginatedList<ClientViewModel>>
         {
             private readonly IApplicationDbContext context;
 
-            public GetAllClientHandler(IApplicationDbContext context)
+            public GetAllClientPaginatedHandler(IApplicationDbContext context)
             {
                 this.context = context;
             }
@@ -37,6 +38,29 @@ namespace MLA.ClientOrder.Application.Features.Client.Query
                 clients.Items.ForEach(x => viewModels.Add(new ClientViewModel(x)));
 
                 return new PaginatedList<ClientViewModel>(viewModels, clients.TotalCount, clients.PageIndex, request.PageSize);
+            }
+        }
+
+        public class GetAllClientCommand : IRequest<List<ClientViewModel>>
+        {
+           
+        }
+
+        public class GetAllClientHandler : IRequestHandler<GetAllClientCommand, List<ClientViewModel>>
+        {
+            private readonly IApplicationDbContext context;
+
+            public GetAllClientHandler(IApplicationDbContext context)
+            {
+                this.context = context;
+            }
+            public async Task<List<ClientViewModel>> Handle(GetAllClientCommand request, CancellationToken cancellationToken)
+            {
+                var clients = await context.Clients.OrderBy(x => x.Client_name).ToListAsync();
+
+                List<ClientViewModel> viewModels = new List<ClientViewModel>();
+                clients.ForEach(x => viewModels.Add(new ClientViewModel(x)));
+                return viewModels;
             }
         }
     }

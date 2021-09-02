@@ -5,6 +5,7 @@ namespace MLA.ClientOrder.Application.View_Models
 {
     public class ClientViewModel : BaseViewModel<Clients>
     {
+        public Guid id { get; set; }
         public string Client_ID { get; set; }
         public string Client_name { get; set; }
         public string Address { get; set; }
@@ -20,6 +21,7 @@ namespace MLA.ClientOrder.Application.View_Models
 
         public ClientViewModel(Clients clients) : base(clients)
         {
+            id = clients.Id;
             Client_ID = clients.Client_ID;
             Client_name = clients.Client_name;
             Industry_sector = clients.Industry_sector;
