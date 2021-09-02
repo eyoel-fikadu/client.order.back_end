@@ -57,7 +57,7 @@ namespace MLA.OrderManagement.Infrustructure.Persistance
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
+            builder.HasDefaultSchema("NewOrderMgt");
             base.OnModelCreating(builder);
         }
     }

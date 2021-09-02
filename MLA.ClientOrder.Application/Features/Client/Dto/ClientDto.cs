@@ -18,6 +18,19 @@ namespace MLA.ClientOrder.Application.Features.Client.Dto
         public void Mappings(Profile profile)
         {
             profile.CreateMap<List<Clients>, List<ClientDto>>();
+            profile.CreateMap<Clients, ClientDto>();
+        }
+
+        public ClientDto()
+        {
+
+        }
+        public ClientDto(Clients client)
+        {
+            if (client == null) return;
+            id = client.Id;
+            client_id = client.Client_ID;
+            clinet_name = client.Client_name;
         }
     }
 }
