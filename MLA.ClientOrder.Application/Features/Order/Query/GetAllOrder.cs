@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Application.Common.Mappings;
 using MLA.ClientOrder.Application.Model;
@@ -33,7 +34,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
             }
             public async Task<PaginatedList<OrderViewModel>> Handle(GetAllOrderCommand request, CancellationToken cancellationToken)
             {
-                var orders = await context.Orders
+                var orders = await context.Orders.Include(x => x.Client).Include(x => x.LeadLayer).Include(x => x.OtherLayers)
                    .OrderByDescending(x => x.StartedDate)
                    .PaginatedListAsync(request.PageNumber, request.PageSize);
 

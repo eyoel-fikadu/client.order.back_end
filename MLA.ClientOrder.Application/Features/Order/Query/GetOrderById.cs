@@ -32,7 +32,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
             }
             public async Task<OrderViewModel> Handle(GetOrderByIdCommand request, CancellationToken cancellationToken)
             {
-                var order = await context.Orders.FindAsync(request.guid);
+                var order = await context.Orders.Include(x => x.Client).Include(x => x.LeadLayer).Include(x => x.OtherLayers).FindAsync(request.guid);
                 if (order == null) throw new NotFoundException(nameof(Orders), request.guid);
 
                 var view = new OrderViewModel(order, mapper);

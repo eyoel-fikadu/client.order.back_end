@@ -32,7 +32,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
             }
             public async Task<List<OrderViewModel>> Handle(GetOrderByClientIdCommand request, CancellationToken cancellationToken)
             {
-                var orders = await context.Orders.Where(x => x.Client.Id == request.guid).ToListAsync();
+                var orders = await context.Orders.Include(x => x.Client).Include(x => x.LeadLayer).Include(x => x.OtherLayers).Where(x => x.Client.Id == request.guid).ToListAsync();
                 var result = new List<OrderViewModel>();
                 orders.ForEach(order =>
                 {
