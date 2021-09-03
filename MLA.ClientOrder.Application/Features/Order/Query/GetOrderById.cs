@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Application.Common.Exceptions;
 using MLA.ClientOrder.Application.View_Models;
 using MLA.ClientOrder.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,7 +30,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
             }
             public async Task<OrderViewModel> Handle(GetOrderByIdCommand request, CancellationToken cancellationToken)
             {
-                var order = await context.Orders.Include(x => x.Client).Include(x => x.LeadLayer).Include(x => x.OtherLayers).FindAsync(request.guid);
+                var order = await context.Orders.Include(x => x.Client).Include(x => x.LeadLayer).Include(x => x.OtherLayers).FirstOrDefaultAsync(x => x.Id == request.guid);
                 if (order == null) throw new NotFoundException(nameof(Orders), request.guid);
 
                 var view = new OrderViewModel(order, mapper);
