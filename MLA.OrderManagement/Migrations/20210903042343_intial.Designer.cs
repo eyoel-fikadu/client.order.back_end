@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MLA.OrderManagement.Infrustructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210902194921_add_schema_name")]
-    partial class add_schema_name
+    [Migration("20210903042343_intial")]
+    partial class intial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
