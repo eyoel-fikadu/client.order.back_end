@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MLA.ClientOrder.API.Controllers.Common;
+using MLA.ClientOrder.Application.Features.Order.Query;
 using MLA.ClientOrder.Application.Model;
 using MLA.ClientOrder.Application.View_Models;
 using System;
@@ -51,6 +52,12 @@ namespace MLA.ClientOrder.API.Controllers
 
         //    return NoContent();
         //}
+
+        [HttpGet("getOrderEnums")]
+        public async Task<ActionResult<List<EnumResponseModel>>> GetEnums()
+        {
+            return await Mediator.Send(new GetOrderEnums());
+        }
 
     }
 }

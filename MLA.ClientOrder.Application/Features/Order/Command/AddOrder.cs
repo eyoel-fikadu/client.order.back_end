@@ -22,6 +22,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Command
             public string IdustrySector { get; set; }
             public Guid LeadLayerId { get; set; }
             public Guid ClientId { get; set; }
+            public string OrderId { get; set; }
             public List<Guid> OtherLayers { get; set; }
             public bool IsLawFirmInvolved { get; set; }
             public bool CroossJudiciaryExistt { get; set; }

@@ -15,6 +15,7 @@ namespace MLA.ClientOrder.Application.View_Models
     public class OrderViewModel : BaseViewModel<Orders>
     {
         public string IdustrySector { get; set; }
+        public string OrderId { get; set; }
         public ClientDto ClientDto { get; set; }
         public LawyersDto LeadLayer { get; set; }
         public List<LawyersDto> OtherLayers { get; set; }
@@ -29,8 +30,8 @@ namespace MLA.ClientOrder.Application.View_Models
         public bool IsConfidential { get; set; }
         public string ProjectStatus { get; set; }
         public string Remark { get; set; }
-        public DateTime CompletedDate { get; set; }
-        public DateTime StartedDate { get; set; }
+        public string CompletedDate { get; set; }
+        public string StartedDate { get; set; }
 
 
         public OrderViewModel(Orders orders, IMapper mapper) : base(orders)

@@ -5,10 +5,8 @@ using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Application.Common.Mappings;
 using MLA.ClientOrder.Application.Model;
 using MLA.ClientOrder.Application.View_Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

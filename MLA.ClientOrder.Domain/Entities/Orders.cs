@@ -10,6 +10,7 @@ namespace MLA.ClientOrder.Domain.Entities
     public class Orders : AuditableEntity
     {
         public Clients Client { get; set; }
+        public string OrderId { get; set; }
         public string IdustrySector { get; set; }
         public Lawyers LeadLayer { get; set; }
         public List<Lawyers> OtherLayers { get; set; }
