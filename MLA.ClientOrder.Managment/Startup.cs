@@ -36,6 +36,26 @@ namespace MLA.ClientOrder.Managment
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
+            #region cors
+
+            services.AddHealthChecks();
+
+            //ConfigurePolicies(services);
+            services.AddCors(o => o.AddPolicy("CorsPolicy", 
+                builder => 
+                {
+                    builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                }));
+
+            services.Configure<IISOptions>(options =>
+                {
+                    options.AutomaticAuthentication = false;
+                });
+
+            #endregion
+
             services.AddMvc(options =>
               options.Filters.Add<ApiExceptionMiddleware>());
 
@@ -51,7 +71,6 @@ namespace MLA.ClientOrder.Managment
                     Description = "Type into the textbox: Bearer {your JWT token}."
                 });
 
-                //c.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
 
             });
 
@@ -74,10 +93,11 @@ namespace MLA.ClientOrder.Managment
                 app.UseHsts();
                 //app.UseSwagger();
                 //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MLA.ClientOrder.Managment v1"));
-            
+
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -87,6 +107,20 @@ namespace MLA.ClientOrder.Managment
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void ConfigurePolicies(IServiceCollection services)
+        {
+            //CORS
+            services.AddCors(options =>
+                {
+                    options.AddPolicy("AllowAllHeaders", builder =>
+                        {
+                            builder.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                        });
+                });
         }
     }
 }
