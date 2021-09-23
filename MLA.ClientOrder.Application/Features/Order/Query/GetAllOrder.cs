@@ -14,13 +14,12 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
 {
     public class GetAllOrder
     {
-        public class GetAllOrderCommand : IRequest<PaginatedList<OrderViewModel>>
+        public class GetAllOrderCommand : IRequest<List<OrderViewModel>>
         {
-            public int PageNumber { get; set; } = 1;
-            public int PageSize { get; set; } = 10;
+            
         }
 
-        public class GetAllOrderCommandHandler : IRequestHandler<GetAllOrderCommand, PaginatedList<OrderViewModel>>
+        public class GetAllOrderCommandHandler : IRequestHandler<GetAllOrderCommand, List<OrderViewModel>>
         {
             private readonly IApplicationDbContext context;
             private readonly IMapper mapper;
@@ -30,20 +29,19 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
                 this.context = context;
                 this.mapper = mapper;
             }
-            public async Task<PaginatedList<OrderViewModel>> Handle(GetAllOrderCommand request, CancellationToken cancellationToken)
+            public async Task<List<OrderViewModel>> Handle(GetAllOrderCommand request, CancellationToken cancellationToken)
             {
                 var orders = await context.Orders.Include(x => x.Client).Include(x => x.LeadLayer).Include(x => x.OtherLayers)
-                   .OrderByDescending(x => x.StartedDate)
-                   .PaginatedListAsync(request.PageNumber, request.PageSize);
+                   .OrderByDescending(x => x.StartedDate).ToListAsync();
 
                 List<OrderViewModel> result = new List<OrderViewModel>();
-                orders.Items.ForEach(order =>
+                orders.ForEach(order =>
                 {
                     var view = new OrderViewModel(order, mapper);
                     result.Add(mapper.Map(order, view));
                 });
 
-                return new PaginatedList<OrderViewModel>(result, orders.TotalCount, request.PageNumber, request.PageSize);
+                return result;
             }
         }
     }

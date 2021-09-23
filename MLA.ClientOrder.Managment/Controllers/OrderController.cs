@@ -17,9 +17,9 @@ namespace MLA.ClientOrder.API.Controllers
     public class OrderController : ApiControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<PaginatedList<OrderViewModel>>> GetTodoItemsWithPagination([FromQuery] GetAllOrderCommand query)
+        public async Task<ActionResult<List<OrderViewModel>>> GetTodoItemsWithPagination()
         {
-            return await Mediator.Send(query);
+            return await Mediator.Send(new GetAllOrderCommand());
         }
 
         [HttpGet("{guid}")]
