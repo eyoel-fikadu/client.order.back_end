@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MLA.ClientOrder.API.Controllers.Common;
 using MLA.ClientOrder.Application.Features.Order.Query;
+using MLA.ClientOrder.Application.Features.Order.Query.GetExistingOrders;
 using MLA.ClientOrder.Application.Model;
 using MLA.ClientOrder.Application.View_Models;
+using MLA.ClientOrder.Domain.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,5 +61,10 @@ namespace MLA.ClientOrder.API.Controllers
             return await Mediator.Send(new GetOrderEnums());
         }
 
+        [HttpGet("getOrderFromOldDb")]
+        public async Task<ActionResult<List<OrderDbModel>>> GetExistingOrders()
+        {
+            return await Mediator.Send(new GetExistingOrdersQuery());
+        }
     }
 }

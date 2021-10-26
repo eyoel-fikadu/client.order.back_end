@@ -47,6 +47,8 @@ namespace MLA.OrderManagement.Infrustructure
             //    //options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));
             //});
 
+            services.AddSingleton<ISqlConnectionFactory>(x => new SqlConnectionFactory(configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IDapperContext, DapperContext>();
             return services;
         }
 
