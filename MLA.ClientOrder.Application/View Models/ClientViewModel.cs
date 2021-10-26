@@ -5,9 +5,9 @@ namespace MLA.ClientOrder.Application.View_Models
 {
     public class ClientViewModel : BaseViewModel<Clients>
     {
-        public string Client_ID { get; set; }
         public string Client_name { get; set; }
-        public string Address { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
         public string State { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
@@ -20,7 +20,6 @@ namespace MLA.ClientOrder.Application.View_Models
 
         public ClientViewModel(Clients clients) : base(clients)
         {
-            Client_ID = clients.Client_ID;
             Client_name = clients.Client_name;
             Industry_sector = clients.Industry_sector;
             Contact_Person = clients.Contact_Person;
@@ -29,7 +28,8 @@ namespace MLA.ClientOrder.Application.View_Models
             Registration_Date = clients.Registration_Date;
 
             var addr = clients.Address;
-            Address = addr.AddressDescription;
+            Address1 = addr.Address1;
+            Address2 = addr.Address2;
             ZipCode = addr.ZipCode;
             Country = addr.Country;
             State = addr.State;

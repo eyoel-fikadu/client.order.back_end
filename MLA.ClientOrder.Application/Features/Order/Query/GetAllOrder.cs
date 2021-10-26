@@ -2,8 +2,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MLA.ClientOrder.Application.Common.Abstraction;
-using MLA.ClientOrder.Application.Common.Mappings;
-using MLA.ClientOrder.Application.Model;
 using MLA.ClientOrder.Application.View_Models;
 using System.Collections.Generic;
 using System.Linq;

@@ -41,12 +41,12 @@ namespace MLA.ClientOrder.Application.Features.Client.Query
             }
         }
 
-        public class GetAllClientCommand : IRequest<List<ClientViewModel>>
+        public class GetAllClientQuery : IRequest<List<ClientViewModel>>
         {
            
         }
 
-        public class GetAllClientHandler : IRequestHandler<GetAllClientCommand, List<ClientViewModel>>
+        public class GetAllClientHandler : IRequestHandler<GetAllClientQuery, List<ClientViewModel>>
         {
             private readonly IApplicationDbContext context;
 
@@ -54,7 +54,7 @@ namespace MLA.ClientOrder.Application.Features.Client.Query
             {
                 this.context = context;
             }
-            public async Task<List<ClientViewModel>> Handle(GetAllClientCommand request, CancellationToken cancellationToken)
+            public async Task<List<ClientViewModel>> Handle(GetAllClientQuery request, CancellationToken cancellationToken)
             {
                 var clients = await context.Clients.OrderBy(x => x.Client_name).ToListAsync();
 

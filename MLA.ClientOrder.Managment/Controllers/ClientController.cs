@@ -23,7 +23,7 @@ namespace MLA.ClientOrder.API.Controllers
         [HttpGet("listAll")]
         public async Task<ActionResult<List<ClientViewModel>>> GetClientsList()
         {
-            return await Mediator.Send(new GetAllClientCommand());
+            return await Mediator.Send(new GetAllClientQuery());
         }
 
 

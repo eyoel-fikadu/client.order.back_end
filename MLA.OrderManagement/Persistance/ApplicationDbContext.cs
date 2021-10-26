@@ -1,11 +1,7 @@
-﻿using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Domain.Common;
 using MLA.ClientOrder.Domain.Entities;
-using MLA.OrderManagement.Infrustructure.Identity;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;

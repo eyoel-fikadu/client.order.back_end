@@ -40,7 +40,6 @@ namespace MLA.ClientOrder.Managment
 
             services.AddHealthChecks();
 
-            //ConfigurePolicies(services);
             services.AddCors(o => o.AddPolicy("CorsPolicy", 
                 builder => 
                 {
@@ -107,20 +106,6 @@ namespace MLA.ClientOrder.Managment
             {
                 endpoints.MapControllers();
             });
-        }
-
-        private void ConfigurePolicies(IServiceCollection services)
-        {
-            //CORS
-            services.AddCors(options =>
-                {
-                    options.AddPolicy("AllowAllHeaders", builder =>
-                        {
-                            builder.AllowAnyOrigin()
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                        });
-                });
         }
     }
 }
