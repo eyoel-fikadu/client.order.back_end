@@ -17,6 +17,6 @@ namespace MLA.ClientOrder.Application.Features.Client.Command
         public string Contact_person_Email_Address { get; set; }
         public string Contact_person_Phone_Number { get; set; }
         public DateTime Registration_Date { get; set; }
-
+        public bool isActive { get; set; }
     }
 }

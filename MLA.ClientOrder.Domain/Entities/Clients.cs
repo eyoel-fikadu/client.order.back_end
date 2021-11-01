@@ -6,7 +6,7 @@ namespace MLA.ClientOrder.Domain.Entities
 {
     public class Clients : AuditableEntity 
     {
-        public Clients(string client_name, string industry_sector, string contact_Person, string contact_person_Email_Address, string contact_person_Phone_Number, DateTime registration_Date)
+        public Clients(string client_name, string industry_sector, string contact_Person, string contact_person_Email_Address, string contact_person_Phone_Number, DateTime registration_Date, bool isActive)
         {
             Client_name = client_name;
             Industry_sector = industry_sector;
@@ -14,6 +14,7 @@ namespace MLA.ClientOrder.Domain.Entities
             Contact_person_Email_Address = contact_person_Email_Address;
             Contact_person_Phone_Number = contact_person_Phone_Number;
             Registration_Date = registration_Date;
+            IsActive = isActive;
         }
 
         public string Client_name { get; set; }

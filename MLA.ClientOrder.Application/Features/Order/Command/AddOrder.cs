@@ -35,7 +35,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Command
             public bool IsConfidential { get; set; }
             public string ProjectStatus { get; set; }
             public string Remark { get; set; }
-            public DateTime CompletedDate { get; set; }
+            public DateTime? CompletedDate { get; set; }
             public DateTime StartedDate { get; set; }
 
             public void Mapping(Profile profile)
