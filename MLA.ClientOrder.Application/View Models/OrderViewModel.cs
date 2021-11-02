@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using MLA.ClientOrder.Application.Common.Mappings;
 using MLA.ClientOrder.Application.Features.Client.Dto;
 using MLA.ClientOrder.Application.Features.Layer.Dto;
-using MLA.ClientOrder.Application.Features.Order.Command;
+using MLA.ClientOrder.Application.Features.Order.Dto;
 using MLA.ClientOrder.Domain.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MLA.ClientOrder.Application.View_Models
 {
@@ -39,7 +35,7 @@ namespace MLA.ClientOrder.Application.View_Models
             this.LawFirmInvolved = mapper.Map<List<LawFirmDto>>(orders.LawFirmInvolved);
             this.CrossJudiciaries = orders.CrossJudiciaries.Select(x => x.Judiciaries).ToList();
             this.LeadLayer = mapper.Map<LawyersDto>(orders.LeadLayer);
-            this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.OtherLayers);
+            this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.OtherLawyers.Select(x => x.Lawyer).ToList());
             this.ClientDto = new ClientDto(orders.Client);
         }
     }

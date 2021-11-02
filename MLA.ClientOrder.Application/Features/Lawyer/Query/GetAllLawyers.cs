@@ -28,7 +28,7 @@ namespace MLA.ClientOrder.Application.Features.Layer.Query
 
         public async Task<List<LawyersDto>> Handle(GetAllLawyersCommand request, CancellationToken cancellationToken)
         {
-            var lawyers = await _context.Layers.ToListAsync();
+            var lawyers = await _context.Lawyers.ToListAsync();
             return mapper.Map<List<LawyersDto>>(lawyers);
         }
     }

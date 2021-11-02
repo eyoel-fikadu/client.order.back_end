@@ -9,7 +9,7 @@ namespace MLA.ClientOrder.Application.Common.Abstraction
     {
         DbSet<Clients> Clients { get; set; }
         DbSet<Orders> Orders { get; set; }
-        DbSet<Lawyers> Layers { get; set; }
+        DbSet<Lawyers> Lawyers { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
     }

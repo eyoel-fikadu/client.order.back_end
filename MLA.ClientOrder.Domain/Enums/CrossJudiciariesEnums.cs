@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MLA.ClientOrder.Domain.Enums
 {
-    public enum CrossJudiciaries
+    public enum CrossJudiciariesEnums
     {
         [Display(Name = "Cross Judiciary 1")]
         Judiciary1,

@@ -13,7 +13,7 @@ namespace MLA.ClientOrder.Domain.Entities
         public string OrderId { get; set; }
         public string IdustrySector { get; set; }
         public Lawyers LeadLayer { get; set; }
-        public List<Lawyers> OtherLayers { get; set; }
+        public List<OtherLawyers> OtherLawyers { get; set; }
         public bool IsLawFirmInvolved { get; set; }
         public bool CroossJudiciaryExistt { get; set; }
         public List<LawFirmInvolved> LawFirmInvolved { get; set; }

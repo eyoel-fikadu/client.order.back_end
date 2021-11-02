@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MLA.ClientOrder.API.Controllers.Common;
+using MLA.ClientOrder.Application.Features.Order.Command;
 using MLA.ClientOrder.Application.Features.Order.Query;
 using MLA.ClientOrder.Application.Features.Order.Query.GetExistingOrders;
 using MLA.ClientOrder.Application.Model;
@@ -7,9 +8,7 @@ using MLA.ClientOrder.Application.View_Models;
 using MLA.ClientOrder.Domain.DbModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using static MLA.ClientOrder.Application.Features.Order.Command.AddOrder;
 using static MLA.ClientOrder.Application.Features.Order.Query.GetAllOrder;
 using static MLA.ClientOrder.Application.Features.Order.Query.GetOrderByClientId;
 using static MLA.ClientOrder.Application.Features.Order.Query.GetOrderById;

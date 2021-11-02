@@ -17,8 +17,4 @@
     <ProjectReference Include="..\MLA.ClientOrder.Domain\MLA.ClientOrder.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Order\Dto\" />
-  </ItemGroup>
-
 </Project>
