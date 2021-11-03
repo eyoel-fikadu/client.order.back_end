@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MLA.ClientOrder.Domain.Enums
 {
     public enum LawFirmInvolvedEnums
     {
-        [Display(Name = "Law Firm Involved 1")]
-        LawFirm1,
-        [Display(Name = "Law Firm Involved 2")]
-        LawFirm2
+        [Display(Name = "DLA piper LLP")]
+        DLA,
+        [Display(Name = "Bowmans")]
+        BOWMANS,
+        [Display(Name = "Baker And Mckenzie")]
+        BAKER,
+        [Display(Name = "Anje Law Firm")]
+        ANJE,
+        [Display(Name = "FM Legal")]
+        FM,
+        [Display(Name = "JunHe LLP")]
+        JUNHE
     }
 }

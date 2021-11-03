@@ -11,7 +11,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Command.AddOrder
                 .WithMessage("Order Can not be null or empty");
 
             RuleFor(p => p.ClientId)
-                .NotNull(p)
+                .NotNull()
                 .WithMessage("Client Can not be null or empty");
 
             RuleFor(p => p.LeadLayerId)
