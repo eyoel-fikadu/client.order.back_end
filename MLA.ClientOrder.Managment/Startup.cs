@@ -11,7 +11,6 @@ using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.OrderManagement.Infrustructure;
 using MLA.OrderManagement.Infrustructure.Persistance;
 
-
 namespace MLA.ClientOrder.Managment
 {
     public class Startup
@@ -40,8 +39,8 @@ namespace MLA.ClientOrder.Managment
 
             services.AddHealthChecks();
 
-            services.AddCors(o => o.AddPolicy("CorsPolicy", 
-                builder => 
+            services.AddCors(o => o.AddPolicy("CorsPolicy",
+                builder =>
                 {
                     builder.AllowAnyOrigin()
                             .AllowAnyMethod()
@@ -70,14 +69,13 @@ namespace MLA.ClientOrder.Managment
                     Description = "Type into the textbox: Bearer {your JWT token}."
                 });
 
-
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+           
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MLA.ClientOrder.Managment v1"));
 
@@ -96,16 +94,25 @@ namespace MLA.ClientOrder.Managment
             }
 
             app.UseCors("CorsPolicy");
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
+            app.UseHealthChecks("/health");
 
+            //app.UseSwaggerUi3(settings =>
+            //{
+            //    settings.Path = "/api";
+            //    settings.DocumentPath = "/api/specification.json";
+            //});
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseIdentityServer();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

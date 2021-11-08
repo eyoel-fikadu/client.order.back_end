@@ -1,10 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MLA.OrderManagement.Infrustructure.Identity;
 using MLA.OrderManagement.Infrustructure.Persistance;
 
 namespace MLA.ClientOrder.Managment
@@ -25,13 +27,13 @@ namespace MLA.ClientOrder.Managment
 
                     if (context.Database.IsSqlServer())
                     {
-                        //context.Database.Migrate();
+                        context.Database.Migrate();
                     }
 
-                    //var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    //var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                    //await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
+                    await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager, roleManager);
                     //await ApplicationDbContextSeed.SeedSampleDataAsync(context);
                 }
                 catch (Exception ex)
