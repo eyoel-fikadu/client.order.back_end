@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.OrderManagement.Infrustructure.Identity;
 using MLA.OrderManagement.Infrustructure.Persistance;
 using MLA.OrderManagement.Infrustructure.Services;
 using System;
+using System.Text;
 
 namespace MLA.OrderManagement.Infrustructure
 {
@@ -48,7 +51,8 @@ namespace MLA.OrderManagement.Infrustructure
                     options.User.RequireUniqueEmail = true;
                 })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
 
             services.AddIdentityServer()
@@ -56,10 +60,46 @@ namespace MLA.OrderManagement.Infrustructure
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
+            //services.AddTransient<ITokenService, TokenService>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
- 
+
+            //var key = Encoding.ASCII.GetBytes(configuration.GetSection("Jwt")["key"].ToString());
+
+            //services.AddAuthentication(x =>
+            //{
+            //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            //.AddIdentityServerJwt(x =>
+            //{
+            //    x.RequireHttpsMetadata = false;
+            //    x.SaveToken = true;
+            //    x.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(key),
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false,
+            //        ValidateLifetime = true,
+            //        ValidIssuer = configuration.GetSection("Jwt")["Issuer"].ToString(),
+            //        ValidAudience = configuration.GetSection("Jwt")["Audience"].ToString(),
+            //    };
+            //    //x.Events = new JwtBearerEvents
+            //    //{
+            //    // OnTokenValidated = context =>
+            //    // {
+            //    // var jwt = (context.SecurityToken as JwtSecurityToken)?.ToString();
+            //    // // get your JWT token here if you need to decode it e.g on https://jwt.io
+            //    // // And you can re-add role claim if it has different name in token compared to what you want to use in your ClaimIdentity:
+            //    // AddRoleClaims(context.Principal);
+            //    // return Task.CompletedTask;
+            //    // }
+            //    //};
+            //});
+
+
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));

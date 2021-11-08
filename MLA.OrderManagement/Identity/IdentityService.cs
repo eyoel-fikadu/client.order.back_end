@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using IdentityModel.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MLA.ClientOrder.Application.Common.Abstraction;
+using MLA.ClientOrder.Application.Features.User.ViewModel;
 using MLA.ClientOrder.Application.Model;
 using System;
 using System.Linq;
@@ -15,17 +17,20 @@ namespace MLA.OrderManagement.Infrustructure.Identity
         private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
         private readonly IAuthorizationService _authorizationService;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public IdentityService(
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager,
             IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-            IAuthorizationService authorizationService)
+            IAuthorizationService authorizationService,
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
             _authorizationService = authorizationService;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
         public async Task<string> GetUserNameAsync(string userId)
@@ -79,6 +84,29 @@ namespace MLA.OrderManagement.Infrustructure.Identity
             return result.Succeeded;
         }
 
+        public async Task<UserViewModel> AuthorizeUserAsync(string userId, string password)
+        {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userId);
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+            if(result.Succeeded)
+            {
+                //var roles = await _roleManager.Roles.
+                UserViewModel userView = new UserViewModel()
+                {
+                    UserName = userId,
+                    Email = user.Email,
+                    Roles = new System.Collections.Generic.List<string>() { "Administrator" }
+                };
+                userView.token = await _userManager.GenerateUserTokenAsync(user, "Default", "Login");
+                return userView;
+            }
+            else
+            {
+                throw new UnauthorizedAccessException();
+            }
+        }
+
         public async Task<Result> DeleteUserAsync(string userId)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
@@ -111,5 +139,6 @@ namespace MLA.OrderManagement.Infrustructure.Identity
             }
             return false;
         }
+
     }
 }

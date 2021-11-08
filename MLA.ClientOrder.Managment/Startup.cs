@@ -10,6 +10,9 @@ using MLA.ClientOrder.Application;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.OrderManagement.Infrustructure;
 using MLA.OrderManagement.Infrustructure.Persistance;
+//using NSwag;
+//using NSwag.Generation.Processors.Security;
+using System.Linq;
 
 namespace MLA.ClientOrder.Managment
 {
@@ -70,12 +73,25 @@ namespace MLA.ClientOrder.Managment
                 });
 
             });
+
+            //services.AddSwaggerGen(configure =>
+            //{
+            //    configure.Title = "CleanArchitecture API";
+            //    configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+            //    {
+            //        Type = OpenApiSecuritySchemeType.ApiKey,
+            //        Name = "Authorization",
+            //        In = OpenApiSecurityApiKeyLocation.Header,
+            //        Description = "Type into the textbox: Bearer {your JWT token}."
+            //    });
+
+            //    //configure.OperationProcessors.Add(new Secur("JWT"));
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-           
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MLA.ClientOrder.Managment v1"));
 
