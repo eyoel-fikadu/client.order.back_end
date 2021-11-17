@@ -1,4 +1,5 @@
 ﻿using IdentityModel.Client;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Application.Features.User.ViewModel;
@@ -13,14 +14,21 @@ namespace MLA.OrderManagement.Infrustructure.Services
 {
     public class TokenService : ITokenService
     {
+        private readonly IConfiguration configuration;
+
+        public TokenService(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public string BuildToken(UserViewModel user)
         {
-            var key = Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["Jwt:Key"]);
+            var key = Encoding.ASCII.GetBytes(configuration.GetSection("Jwt")["Key"]);
 
             var allClaims = new Claim[] {
                 new(ClaimTypes.GivenName, user.UserName),
                 new(ClaimTypes.Name, user.UserName),
-                new(ClaimTypes.Surname, user.SurName),
+                //new(ClaimTypes.Surname, user.SurName),
                 new(ClaimTypes.Email, user.Email),
                 new(ClaimTypes.Authentication, user.Id.ToString()),
                 new(ClaimTypes.UserData, user.Id.ToString()),

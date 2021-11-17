@@ -34,7 +34,7 @@ namespace MLA.OrderManagement.Infrustructure
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services
-                .AddDefaultIdentity<ApplicationUser>(options => 
+                .AddDefaultIdentity<ApplicationUser>(options =>
                 {
                     //password settings
                     options.Password.RequireDigit = true;
@@ -51,59 +51,59 @@ namespace MLA.OrderManagement.Infrustructure
                     options.User.RequireUniqueEmail = true;
                 })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+                //.AddDefaultTokenProviders();
 
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+            //services.AddIdentityServer()
+                //.AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
-            //services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<ITokenService, TokenService>();
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            //services.AddAuthentication()
+            //    .AddIdentityServerJwt();
 
-            //var key = Encoding.ASCII.GetBytes(configuration.GetSection("Jwt")["key"].ToString());
+            var key = Encoding.ASCII.GetBytes(configuration.GetSection("Jwt")["key"].ToString());
 
-            //services.AddAuthentication(x =>
-            //{
-            //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddIdentityServerJwt(x =>
-            //{
-            //    x.RequireHttpsMetadata = false;
-            //    x.SaveToken = true;
-            //    x.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(key),
-            //        ValidateIssuer = false,
-            //        ValidateAudience = false,
-            //        ValidateLifetime = true,
-            //        ValidIssuer = configuration.GetSection("Jwt")["Issuer"].ToString(),
-            //        ValidAudience = configuration.GetSection("Jwt")["Audience"].ToString(),
-            //    };
-            //    //x.Events = new JwtBearerEvents
-            //    //{
-            //    // OnTokenValidated = context =>
-            //    // {
-            //    // var jwt = (context.SecurityToken as JwtSecurityToken)?.ToString();
-            //    // // get your JWT token here if you need to decode it e.g on https://jwt.io
-            //    // // And you can re-add role claim if it has different name in token compared to what you want to use in your ClaimIdentity:
-            //    // AddRoleClaims(context.Principal);
-            //    // return Task.CompletedTask;
-            //    // }
-            //    //};
-            //});
-
-
-            services.AddAuthorization(options =>
+            services.AddAuthentication(x =>
             {
-                options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidIssuer = configuration.GetSection("Jwt")["Issuer"].ToString(),
+                    ValidAudience = configuration.GetSection("Jwt")["Audience"].ToString(),
+                };
+                //x.Events = new JwtBearerEvents
+                //{
+                // OnTokenValidated = context =>
+                // {
+                // var jwt = (context.SecurityToken as JwtSecurityToken)?.ToString();
+                // // get your JWT token here if you need to decode it e.g on https://jwt.io
+                // // And you can re-add role claim if it has different name in token compared to what you want to use in your ClaimIdentity:
+                // AddRoleClaims(context.Principal);
+                // return Task.CompletedTask;
+                // }
+                //};
             });
+
+
+            //services.AddAuthorization(options =>
+            //{
+            //    //options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator"));
+            //});
 
             services.AddSingleton<ISqlConnectionFactory>(x => new SqlConnectionFactory(configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IDapperContext, DapperContext>();

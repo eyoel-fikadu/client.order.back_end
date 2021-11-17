@@ -18,24 +18,27 @@ namespace MLA.OrderManagement.Infrustructure.Identity
         private readonly IAuthorizationService _authorizationService;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ITokenService _tokenService;
 
         public IdentityService(
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager,
             IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
             IAuthorizationService authorizationService,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            ITokenService tokenService)
         {
             _userManager = userManager;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
             _authorizationService = authorizationService;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
         public async Task<string> GetUserNameAsync(string userId)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == userId);
 
             return user.UserName;
         }
@@ -94,11 +97,12 @@ namespace MLA.OrderManagement.Infrustructure.Identity
                 //var roles = await _roleManager.Roles.
                 UserViewModel userView = new UserViewModel()
                 {
+                    Id = user.Id,
                     UserName = userId,
                     Email = user.Email,
                     Roles = new System.Collections.Generic.List<string>() { "Administrator" }
                 };
-                userView.token = await _userManager.GenerateUserTokenAsync(user, "Default", "Login");
+                userView.token = _tokenService.BuildToken(userView);
                 return userView;
             }
             else

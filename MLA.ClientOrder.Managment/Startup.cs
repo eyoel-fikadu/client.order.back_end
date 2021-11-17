@@ -121,7 +121,7 @@ namespace MLA.ClientOrder.Managment
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseIdentityServer();
+            //app.UseIdentityServer();
             app.UseAuthorization();
             
             app.UseEndpoints(endpoints =>
