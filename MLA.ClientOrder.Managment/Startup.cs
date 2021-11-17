@@ -10,7 +10,9 @@ using MLA.ClientOrder.Application;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.OrderManagement.Infrustructure;
 using MLA.OrderManagement.Infrustructure.Persistance;
-
+//using NSwag;
+//using NSwag.Generation.Processors.Security;
+using System.Linq;
 
 namespace MLA.ClientOrder.Managment
 {
@@ -40,8 +42,8 @@ namespace MLA.ClientOrder.Managment
 
             services.AddHealthChecks();
 
-            services.AddCors(o => o.AddPolicy("CorsPolicy", 
-                builder => 
+            services.AddCors(o => o.AddPolicy("CorsPolicy",
+                builder =>
                 {
                     builder.AllowAnyOrigin()
                             .AllowAnyMethod()
@@ -70,9 +72,21 @@ namespace MLA.ClientOrder.Managment
                     Description = "Type into the textbox: Bearer {your JWT token}."
                 });
 
-
             });
 
+            //services.AddSwaggerGen(configure =>
+            //{
+            //    configure.Title = "CleanArchitecture API";
+            //    configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+            //    {
+            //        Type = OpenApiSecuritySchemeType.ApiKey,
+            //        Name = "Authorization",
+            //        In = OpenApiSecurityApiKeyLocation.Header,
+            //        Description = "Type into the textbox: Bearer {your JWT token}."
+            //    });
+
+            //    //configure.OperationProcessors.Add(new Secur("JWT"));
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,16 +110,25 @@ namespace MLA.ClientOrder.Managment
             }
 
             app.UseCors("CorsPolicy");
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
+            app.UseHealthChecks("/health");
 
+            //app.UseSwaggerUi3(settings =>
+            //{
+            //    settings.Path = "/api";
+            //    settings.DocumentPath = "/api/specification.json";
+            //});
             app.UseRouting();
 
+            app.UseAuthentication();
+            //app.UseIdentityServer();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

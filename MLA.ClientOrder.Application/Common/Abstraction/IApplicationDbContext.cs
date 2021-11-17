@@ -10,6 +10,7 @@ namespace MLA.ClientOrder.Application.Common.Abstraction
         DbSet<Clients> Clients { get; set; }
         DbSet<Orders> Orders { get; set; }
         DbSet<Lawyers> Lawyers { get; set; }
+        DbSet<UserDetails> Users { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
     }

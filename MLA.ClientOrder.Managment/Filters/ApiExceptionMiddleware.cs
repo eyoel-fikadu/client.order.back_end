@@ -132,6 +132,7 @@ namespace MLA.ClientOrder.API.Filters
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "An error occurred while processing your request.",
+                Detail = context.Exception.Message,
                 Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1"
             };
 
