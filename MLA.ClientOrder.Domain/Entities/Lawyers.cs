@@ -1,9 +1,6 @@
 ﻿using MLA.ClientOrder.Domain.Common;
-using System;
+using MLA.ClientOrder.Domain.ValueObjects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MLA.ClientOrder.Domain.Entities
 {
@@ -12,5 +9,7 @@ namespace MLA.ClientOrder.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Role { get; set; }
+
+        public List<OtherLawyers> OtherLayers { get; set; }
     }
 }

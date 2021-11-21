@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using MLA.ClientOrder.API.Controllers.Common;
 using MLA.ClientOrder.Application.Features.Client.Command;
 using MLA.ClientOrder.Application.Model;
@@ -12,6 +13,7 @@ using static MLA.ClientOrder.Application.Features.Client.Query.GetClient;
 
 namespace MLA.ClientOrder.API.Controllers
 {
+    
     public class ClientController : ApiControllerBase
     {
         [HttpGet]

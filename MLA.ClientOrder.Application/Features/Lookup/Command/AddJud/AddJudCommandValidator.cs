@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLA.ClientOrder.Application
+namespace MLA.ClientOrder.Application.Features.Lookup.Command.AddFirm
 {
-    public static class DependencyInjectionExtenstion
+    class AddJudCommandValidator
     {
     }
 }

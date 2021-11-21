@@ -1,22 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Domain.Common;
 using MLA.ClientOrder.Domain.Entities;
+using MLA.OrderManagement.Infrustructure.Identity;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MLA.OrderManagement.Infrustructure.Persistance
 {
-    public class ApplicationDbContext : DbContext, IApplicationDbContext
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
 
         public ApplicationDbContext(
             DbContextOptions options,
+            IOptions<OperationalStoreOptions> operationalStoreOptions,
             ICurrentUserService currentUserService,
-            IDateTime dateTime) : base(options)
+            IDateTime dateTime) : base(options, operationalStoreOptions)
         {
             _currentUserService = currentUserService;
             _dateTime = dateTime;
@@ -24,8 +29,9 @@ namespace MLA.OrderManagement.Infrustructure.Persistance
 
         public DbSet<Clients> Clients { get; set; }
         public DbSet<Orders> Orders { get; set ; }
-        public DbSet<Lawyers> Layers { get; set ; }
-
+        public DbSet<Lawyers> Lawyers { get; set ; }
+        public DbSet<UserDetails> Users { get; set; }
+        public DbSet<Lookups> Lookups { get; set; }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MLA.ClientOrder.Domain.Enums
 {
-    public enum LawFirmInvolved
+    public enum CrossJudiciariesEnums
     {
-        [Display(Name = "Law Firm Involved 1")]
-        LawFirm1,
-        [Display(Name = "Law Firm Involved 2")]
-        LawFirm2
+        [Display(Name = "Cross Judiciary 1")]
+        Judiciary1,
+        [Display(Name = "Cross Judiciary 2")]
+        Judiciary2
     }
 }

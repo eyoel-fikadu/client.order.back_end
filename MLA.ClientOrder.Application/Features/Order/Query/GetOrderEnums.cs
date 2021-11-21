@@ -23,20 +23,20 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
             List<EnumResponseModel> enums = new List<EnumResponseModel>();
             enums.Add(new EnumResponseModel()
             {
-                enumKey = nameof(CrossJudiciaries),
-                enums = EnumExtension.GetList<CrossJudiciaries>()
+                enumKey = nameof(CrossJudiciariesEnums),
+                enums = EnumExtension.GetList<CrossJudiciariesEnums>()
             });
 
             enums.Add(new EnumResponseModel()
             {
-                enumKey = nameof(LawFirmInvolved),
-                enums = EnumExtension.GetList<LawFirmInvolved>()
+                enumKey = nameof(LawFirmInvolvedEnums),
+                enums = EnumExtension.GetList<LawFirmInvolvedEnums>()
             });
 
             enums.Add(new EnumResponseModel()
             {
-                enumKey = nameof(IndustrySectors),
-                enums = EnumExtension.GetList<IndustrySectors>()
+                enumKey = nameof(IndustrySectorsEnums),
+                enums = EnumExtension.GetList<IndustrySectorsEnums>()
             });
 
             return Task.FromResult(enums);

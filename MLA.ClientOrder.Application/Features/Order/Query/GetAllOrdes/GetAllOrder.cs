@@ -29,8 +29,11 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
             }
             public async Task<List<OrderViewModel>> Handle(GetAllOrderCommand request, CancellationToken cancellationToken)
             {
-                var orders = await context.Orders.Include(x => x.Client).Include(x => x.LeadLayer).Include(x => x.OtherLayers)
-                   .OrderByDescending(x => x.StartedDate).ToListAsync();
+                var orders = await context.Orders
+                    .Include(x => x.Client)
+                    .Include(x => x.LeadLayer)
+                    .Include(x => x.OtherLawyers).ThenInclude(x => x.Lawyer)
+                    .OrderByDescending(x => x.StartedDate).ToListAsync();
 
                 List<OrderViewModel> result = new List<OrderViewModel>();
                 orders.ForEach(order =>

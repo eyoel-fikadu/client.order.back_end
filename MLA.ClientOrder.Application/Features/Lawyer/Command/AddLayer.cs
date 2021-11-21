@@ -34,7 +34,7 @@ namespace MLA.ClientOrder.Application.Features.Layer.Command
                 Role = request.role
             };
 
-            _context.Layers.Add(layer);
+            _context.Lawyers.Add(layer);
 
             await _context.SaveChangesAsync(cancellationToken);
 
