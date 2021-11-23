@@ -2,6 +2,7 @@
 using MediatR;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Domain.Entities;
+using MLA.ClientOrder.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,10 @@ namespace MLA.ClientOrder.Application.Features.Lookup.Command.AddJud
 
         public async Task<Guid> Handle(AddJudCommand request, CancellationToken cancellationToken)
         {
-            Lookups lookup = new Lookups() { Name = request.Name, Type = Domain.Enums.LookupEnums.CrossJudiciary };
-            await context.Lookups.AddAsync(lookup);
+            Lookups lookup = new Lookups() { Name = request.Name, Type = LookupEnums.CrossJudiciary };
+            
+            context.Lookups.Add(lookup);
+            await context.SaveChangesAsync(cancellationToken);
             return lookup.Id;
         }
     }

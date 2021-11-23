@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MLA.ClientOrder.Application.Features.Lookup.Command.AddFirm
 {
-    public class AddJudCommand:IRequest<Guid>
+    public class AddFirmCommand : IRequest<Guid>
     {
         public String Name { get; set; }
     }
