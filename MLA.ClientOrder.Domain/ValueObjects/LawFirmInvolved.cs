@@ -1,22 +1,20 @@
 ﻿using MLA.ClientOrder.Domain.Common;
+using MLA.ClientOrder.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MLA.ClientOrder.Domain.Values
 {
     public class LawFirmInvolved : ValueObject
     {
-        public string LawFirm { get; set; }
+        public Lookups LawFirm { get; set; }
         public string Role { get; set; }
 
         public LawFirmInvolved()
         {
 
         }
-        public LawFirmInvolved(string lawFirm, string role)
+        public LawFirmInvolved(Lookups lawFirm, string role)
         {
             this.LawFirm = lawFirm;
             this.Role = role;

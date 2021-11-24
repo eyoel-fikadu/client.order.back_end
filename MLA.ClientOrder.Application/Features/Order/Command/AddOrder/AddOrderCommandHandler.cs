@@ -25,6 +25,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Command.AddOrder
         }
         public async Task<Guid> Handle(AddOrderCommand request, CancellationToken cancellationToken)
         {
+            List<Lookups> lookupsList = context.Lookups.ToList();
             var order = mapper.Map<Orders>(request);
             order.LawFirmInvolved = new List<LawFirmInvolved>();
             request?.LawFirmInvolved.ForEach(x => order.LawFirmInvolved.Add(mapper.Map<LawFirmInvolved>(x)));
@@ -37,7 +38,8 @@ namespace MLA.ClientOrder.Application.Features.Order.Command.AddOrder
                 order.OtherLawyers.Add(new OtherLawyers() { Order = order, Lawyer = x });
             });
             order.CrossJudiciaries = new List<CrossJudiciaries>();
-            request?.CrossJudiciaries.ForEach(x => order.CrossJudiciaries.Add(new CrossJudiciaries(x)));
+            
+            request?.CrossJudiciaries.ForEach(x => order.CrossJudiciaries.Add(new CrossJudiciaries() { Judiciaries = lookupsList.FirstOrDefault(y => y.Id == x) }));
             context.Orders.Add(order);
             await context.SaveChangesAsync(cancellationToken);
             return order.Id;

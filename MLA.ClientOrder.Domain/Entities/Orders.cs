@@ -25,6 +25,7 @@ namespace MLA.ClientOrder.Domain.Entities
         public bool IsConfidential { get; set; }
         public string ProjectStatus { get; set; }
         public string Remark { get; set; }
+        public bool IsCompleted { get; set; }
         public DateTime CompletedDate { get; set; }
         public DateTime StartedDate { get; set; }
     }

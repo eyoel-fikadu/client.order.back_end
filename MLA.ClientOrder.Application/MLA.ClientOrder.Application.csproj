@@ -18,4 +18,10 @@
     <ProjectReference Include="..\MLA.ClientOrder.Domain\MLA.ClientOrder.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Client\Command\DeleteClient\" />
+    <Folder Include="Features\Client\Command\InActiveClient\" />
+    <Folder Include="Features\Order\Query\GetOrderReport\" />
+  </ItemGroup>
+
 </Project>

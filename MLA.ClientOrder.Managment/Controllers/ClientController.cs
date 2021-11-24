@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MLA.ClientOrder.API.Controllers.Common;
 using MLA.ClientOrder.Application.Features.Client.Command;
 using MLA.ClientOrder.Application.Model;
@@ -13,7 +12,6 @@ using static MLA.ClientOrder.Application.Features.Client.Query.GetClient;
 
 namespace MLA.ClientOrder.API.Controllers
 {
-    
     public class ClientController : ApiControllerBase
     {
         [HttpGet]
@@ -32,7 +30,7 @@ namespace MLA.ClientOrder.API.Controllers
         [HttpGet("{guid}")]
         public async Task<ActionResult<ClientViewModel>> GetClientById(Guid guid)
         {
-            return await Mediator.Send(new GetClientCommand() { guid = guid});
+            return await Mediator.Send(new GetClientCommand() { guid = guid });
         }
 
         [HttpPost]
@@ -54,25 +52,16 @@ namespace MLA.ClientOrder.API.Controllers
             return NoContent();
         }
 
-        //[HttpPut("[action]")]
-        //public async Task<ActionResult> UpdateItemDetails(int id, UpdateTodoItemDetailCommand command)
-        //{
-        //    if (id != command.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> MakeInActive(Guid id)
+        {
+            return NoContent();
+        }
 
-        //    await Mediator.Send(command);
-
-        //    return NoContent();
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult> Delete(int id)
-        //{
-        //    await Mediator.Send(new DeleteTodoItemCommand { Id = id });
-
-        //    return NoContent();
-        //}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            return NoContent();
+        }
     }
 }

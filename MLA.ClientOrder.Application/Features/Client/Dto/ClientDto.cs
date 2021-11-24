@@ -10,6 +10,7 @@ namespace MLA.ClientOrder.Application.Features.Client.Dto
     {
         public Guid id { get; set; }
         public string clinet_name { get; set; }
+        public string Industry_sector { get; set; }
 
         public void Mappings(Profile profile)
         {

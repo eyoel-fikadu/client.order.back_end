@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MLA.ClientOrder.Application.Features.Client.Dto;
 using MLA.ClientOrder.Application.Features.Layer.Dto;
+using MLA.ClientOrder.Application.Features.Lookup.ViewModel;
 using MLA.ClientOrder.Application.Features.Order.Dto;
 using MLA.ClientOrder.Domain.Entities;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace MLA.ClientOrder.Application.View_Models
         public bool IsLawFirmInvolved { get; set; }
         public bool CroossJudiciaryExistt { get; set; }
         public List<LawFirmDto> LawFirmInvolved { get; set; }
-        public List<string> CrossJudiciaries { get; set; }
+        public List<LookupVm> CrossJudiciaries { get; set; }
         public string TransactionType { get; set; }
         public string TransactionDescription { get; set; }
         public string MatterDescription { get; set; }
@@ -33,7 +34,7 @@ namespace MLA.ClientOrder.Application.View_Models
         public OrderViewModel(Orders orders, IMapper mapper) : base(orders)
         {
             this.LawFirmInvolved = mapper.Map<List<LawFirmDto>>(orders.LawFirmInvolved);
-            this.CrossJudiciaries = orders.CrossJudiciaries.Select(x => x.Judiciaries).ToList();
+            this.CrossJudiciaries = orders.CrossJudiciaries.Select(x => new LookupVm() { id = x.Judiciaries.Id, value = x.Judiciaries.Name}).ToList();
             this.LeadLayer = mapper.Map<LawyersDto>(orders.LeadLayer);
             this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.OtherLawyers.Select(x => x.Lawyer).ToList());
             this.ClientDto = new ClientDto(orders.Client);

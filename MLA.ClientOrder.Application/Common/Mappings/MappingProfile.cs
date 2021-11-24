@@ -4,6 +4,7 @@ using MLA.ClientOrder.Domain.Entities;
 using System;
 using System.Linq;
 using System.Reflection;
+using static MLA.ClientOrder.Application.Features.Client.Command.UpdateClient;
 
 namespace MLA.ClientOrder.Application.Common.Mappings
 {
@@ -14,6 +15,7 @@ namespace MLA.ClientOrder.Application.Common.Mappings
             ApplyMappingsFromAssemblyFrom(Assembly.GetExecutingAssembly());
             ApplyMappingsFromAssemblyTo(Assembly.GetExecutingAssembly());
             MapOrder();
+            MapClient();
         }
 
         private void ApplyMappingsFromAssemblyFrom(Assembly assembly)
@@ -63,6 +65,11 @@ namespace MLA.ClientOrder.Application.Common.Mappings
               .ForMember(x => x.CrossJudiciaries, opt => opt.Ignore())
               .ForMember(x => x.CompletedDate, opt => opt.MapFrom(x => x.CompletedDate.ToShortDateString()))
               .ForMember(x => x.StartedDate, opt => opt.MapFrom(x => x.StartedDate.ToShortDateString()));
+        }
+
+        private void MapClient()
+        {
+            CreateMap<UpdateClinetCommand, Clients>();
         }
     }
 }

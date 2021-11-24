@@ -1,20 +1,17 @@
 ﻿using MLA.ClientOrder.Domain.Common;
-using System;
+using MLA.ClientOrder.Domain.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MLA.ClientOrder.Domain.ValueObjects
 {
     public class CrossJudiciaries : ValueObject
     {
-        public string Judiciaries { get; set; }
+        public Lookups Judiciaries { get; set; }
         public CrossJudiciaries()
         {
 
         }
-        public CrossJudiciaries(string judiciary)
+        public CrossJudiciaries(Lookups judiciary)
         {
             this.Judiciaries = judiciary;
         }

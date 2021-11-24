@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using MLA.ClientOrder.Application.Common.Mappings;
 using MLA.ClientOrder.Application.Features.Order.Dto;
 using MLA.ClientOrder.Domain.Entities;
 using System;
@@ -8,8 +7,9 @@ using System.Collections.Generic;
 
 namespace MLA.ClientOrder.Application.Features.Order.Command
 {
-    public class AddOrderCommand : IRequest<Guid>, IMapTo<Orders>
+    public class UpdateOrderCommand : IRequest
     {
+        public Guid id { get; set; }
         public string IdustrySector { get; set; }
         public Guid LeadLayerId { get; set; }
         public Guid ClientId { get; set; }
@@ -26,13 +26,12 @@ namespace MLA.ClientOrder.Application.Features.Order.Command
         public bool IsConfidential { get; set; }
         public string ProjectStatus { get; set; }
         public string Remark { get; set; }
-        public bool IsCompleted { get; set; }
         public DateTime? CompletedDate { get; set; }
         public DateTime StartedDate { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<AddOrderCommand, Orders>()
+            profile.CreateMap<UpdateOrderCommand, Orders>()
                 .ForMember(d => d.CrossJudiciaries, opt => opt.Ignore())
                 .ForMember(d => d.LeadLayer, opt => opt.Ignore())
                 .ForMember(d => d.OtherLawyers, opt => opt.Ignore())

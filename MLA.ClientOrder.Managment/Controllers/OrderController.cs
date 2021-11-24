@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MLA.ClientOrder.API.Controllers.Common;
 using MLA.ClientOrder.Application.Features.Order.Command;
+using MLA.ClientOrder.Application.Features.Order.Command.CompleteOrder;
 using MLA.ClientOrder.Application.Features.Order.Query;
 using MLA.ClientOrder.Application.Features.Order.Query.GetExistingOrders;
 using MLA.ClientOrder.Application.Model;
@@ -41,18 +42,31 @@ namespace MLA.ClientOrder.API.Controllers
             return await Mediator.Send(command);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult> Update(Guid id, UpdateClinetCommand command)
-        //{
-        //    if (id != command.guid)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(Guid id, UpdateOrderCommand command)
+        {
+            if (id != command.id)
+            {
+                return BadRequest();
+            }
 
-        //    await Mediator.Send(command);
+            await Mediator.Send(command);
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult> Update(Guid id, CompleteOrderCommand command)
+        {
+            if (id != command.id)
+            {
+                return BadRequest();
+            }
+
+            await Mediator.Send(command);
+
+            return NoContent();
+        }
 
         [HttpGet("getOrderEnums")]
         public async Task<ActionResult<List<EnumResponseModel>>> GetEnums()
