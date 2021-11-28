@@ -17,6 +17,7 @@ namespace MLA.ClientOrder.API.Controllers
         {
             return await Mediator.Send(command);
         }
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<UserViewModel>> GetUserToken([FromQuery] AuthorizeUserCommand command)

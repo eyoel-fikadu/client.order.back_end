@@ -33,6 +33,8 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
                     .Include(x => x.Client)
                     .Include(x => x.LeadLayer)
                     .Include(x => x.OtherLawyers).ThenInclude(x => x.Lawyer)
+                    .Include(x => x.CrossJudiciaries).ThenInclude(x => x.Judiciaries)
+                    .Include(x => x.LawFirmInvolved).ThenInclude(x => x.LawFirm)
                     .OrderByDescending(x => x.StartedDate).ToListAsync();
 
                 List<OrderViewModel> result = new List<OrderViewModel>();

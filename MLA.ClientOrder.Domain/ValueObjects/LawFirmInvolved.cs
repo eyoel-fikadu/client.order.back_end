@@ -7,7 +7,7 @@ namespace MLA.ClientOrder.Domain.Values
 {
     public class LawFirmInvolved : ValueObject
     {
-        public Lookups LawFirm { get; set; }
+        public Lookups LawFirm { get; set; } = new Lookups();
         public string Role { get; set; }
 
         public LawFirmInvolved()

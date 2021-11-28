@@ -6,7 +6,7 @@ namespace MLA.ClientOrder.Domain.ValueObjects
 {
     public class CrossJudiciaries : ValueObject
     {
-        public Lookups Judiciaries { get; set; }
+        public Lookups Judiciaries { get; set; } = new Lookups();
         public CrossJudiciaries()
         {
 
