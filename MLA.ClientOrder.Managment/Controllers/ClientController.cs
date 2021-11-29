@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MLA.ClientOrder.API.Controllers.Common;
 using MLA.ClientOrder.Application.Features.Client.Command;
+using MLA.ClientOrder.Application.Features.Client.Query.FilterClient;
+using MLA.ClientOrder.Application.Features.Client.Query.GetAllClient;
+using MLA.ClientOrder.Application.Features.Client.Query.GetAllClinetNonPaginated;
 using MLA.ClientOrder.Application.Model;
 using MLA.ClientOrder.Application.View_Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using static MLA.ClientOrder.Application.Features.Client.Command.UpdateClient;
-using static MLA.ClientOrder.Application.Features.Client.Query.GetAllClient;
 using static MLA.ClientOrder.Application.Features.Client.Query.GetClient;
 
 namespace MLA.ClientOrder.API.Controllers
@@ -26,6 +28,11 @@ namespace MLA.ClientOrder.API.Controllers
             return await Mediator.Send(new GetAllClientQuery());
         }
 
+        [HttpGet("getByFilter")]
+        public async Task<ActionResult<List<ClientViewModel>>> GetClientsByFilter([FromQuery] FilterClientQuery query)
+        {
+            return await Mediator.Send(query);
+        }
 
         [HttpGet("{guid}")]
         public async Task<ActionResult<ClientViewModel>> GetClientById(Guid guid)

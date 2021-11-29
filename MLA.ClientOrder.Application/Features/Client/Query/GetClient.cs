@@ -5,9 +5,6 @@ using MLA.ClientOrder.Application.Common.Exceptions;
 using MLA.ClientOrder.Application.View_Models;
 using MLA.ClientOrder.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
