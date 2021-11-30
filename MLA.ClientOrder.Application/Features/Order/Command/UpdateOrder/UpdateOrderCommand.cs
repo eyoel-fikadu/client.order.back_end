@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using MLA.ClientOrder.Application.Common.Mappings;
 using MLA.ClientOrder.Application.Features.Order.Dto;
 using MLA.ClientOrder.Domain.Entities;
 using System;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 
 namespace MLA.ClientOrder.Application.Features.Order.Command
 {
-    public class UpdateOrderCommand : IRequest
+    public class UpdateOrderCommand : IRequest, IMapTo<Orders>
     {
         public Guid id { get; set; }
         public string IdustrySector { get; set; }
