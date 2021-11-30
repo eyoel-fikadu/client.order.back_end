@@ -62,9 +62,7 @@ namespace MLA.ClientOrder.Application.Common.Mappings
               .ForMember(x => x.LeadLayer, opt => opt.Ignore())
               .ForMember(x => x.LawFirmInvolved, opt => opt.Ignore())
               .ForMember(x => x.OtherLayers, opt => opt.Ignore())
-              .ForMember(x => x.CrossJudiciaries, opt => opt.Ignore())
-              .ForMember(x => x.CompletedDate, opt => opt.MapFrom(x => x.CompletedDate.ToShortDateString()))
-              .ForMember(x => x.StartedDate, opt => opt.MapFrom(x => x.StartedDate.ToShortDateString()));
+              .ForMember(x => x.CrossJudiciaries, opt => opt.Ignore());
         }
 
         private void MapClient()

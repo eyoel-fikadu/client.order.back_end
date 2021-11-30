@@ -4,6 +4,7 @@ using MLA.ClientOrder.Application.Features.Layer.Dto;
 using MLA.ClientOrder.Application.Features.Lookup.ViewModel;
 using MLA.ClientOrder.Application.Features.Order.Dto;
 using MLA.ClientOrder.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,8 +28,8 @@ namespace MLA.ClientOrder.Application.View_Models
         public bool IsConfidential { get; set; }
         public string ProjectStatus { get; set; }
         public string Remark { get; set; }
-        public string CompletedDate { get; set; }
-        public string StartedDate { get; set; }
+        public DateTime CompletedDate { get; set; }
+        public DateTime StartedDate { get; set; }
 
 
         public OrderViewModel(Orders orders, IMapper mapper) : base(orders)
