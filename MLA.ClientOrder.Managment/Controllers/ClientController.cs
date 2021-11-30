@@ -47,20 +47,15 @@ namespace MLA.ClientOrder.API.Controllers
             return await Mediator.Send(command);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Update(Guid id, UpdateClinetCommand command)
+        [HttpPut]
+        public async Task<ActionResult> Update(UpdateClinetCommand command)
         {
-            if (id != command.guid)
-            {
-                return BadRequest();
-            }
-
             await Mediator.Send(command);
 
             return NoContent();
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch]
         public async Task<ActionResult> MakeInActive(Guid id)
         {
             return NoContent();
