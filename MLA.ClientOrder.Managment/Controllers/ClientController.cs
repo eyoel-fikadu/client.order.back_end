@@ -32,6 +32,7 @@ namespace MLA.ClientOrder.API.Controllers
         public async Task<ActionResult<List<ClientViewModel>>> GetClientsByFilter([FromQuery] FilterClientQuery query)
         {
             return await Mediator.Send(query);
+
         }
 
         [HttpGet("{guid}")]

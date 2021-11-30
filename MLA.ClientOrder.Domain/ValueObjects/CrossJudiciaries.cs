@@ -1,5 +1,6 @@
 ﻿using MLA.ClientOrder.Domain.Common;
 using MLA.ClientOrder.Domain.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace MLA.ClientOrder.Domain.ValueObjects
@@ -7,6 +8,7 @@ namespace MLA.ClientOrder.Domain.ValueObjects
     public class CrossJudiciaries : ValueObject
     {
         public Lookups Judiciaries { get; set; } = new Lookups();
+        public Guid JudiciariesId { get; set; }
         public CrossJudiciaries()
         {
 

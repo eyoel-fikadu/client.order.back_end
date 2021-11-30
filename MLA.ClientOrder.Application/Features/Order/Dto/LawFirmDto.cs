@@ -11,6 +11,16 @@ namespace MLA.ClientOrder.Application.Features.Order.Dto
         public LookupVm LawFirm { get; set; }
         public string Role { get; set; }
 
+        public LawFirmDto()
+        {
+        }
+
+        public LawFirmDto(LookupVm lawFirm, string role)
+        {
+            LawFirm = lawFirm;
+            Role = role;
+        }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<LawFirmDto, LawFirmInvolved>();

@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MLA.ClientOrder.Application.Common.Abstraction;
 using MLA.ClientOrder.Application.View_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -32,9 +33,13 @@ namespace MLA.ClientOrder.Application.Features.Order.Query.FilterOrder
                 .ToListAsync();
 
             orders = orders.Where(x =>
-                    x.Client.Id == request.ClientId
-                    && x.IsCompleted == request.IsCompleted)
-                .ToList();
+                    (request.ClientId == Guid.Empty || x.Client.Id == request.ClientId)
+                    && (!request.IsCompleted.HasValue || x.IsCompleted == request.IsCompleted.Value)
+                    && (request.LeadLawyerId == Guid.Empty || x.LeadLayer.Id == request.ClientId)
+                    && (request.LawFirmInvolved == Guid.Empty || x.LawFirmInvolved.Any(x => x.LawFirm.Id == request.ClientId))
+                    && (request.StartDate == null || x.StartedDate >= request.StartDate)
+                    && (request.EndDate == null || x.StartedDate <= request.EndDate)
+                    ).ToList();
 
             List<OrderViewModel> result = new List<OrderViewModel>();
             orders.ForEach(order =>
