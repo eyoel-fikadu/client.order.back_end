@@ -23,6 +23,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query.FilterOrder
         }
         public async Task<List<OrderViewModel>> Handle(FilterOrderQuery request, CancellationToken cancellationToken)
         {
+            var listLookups = await context.Lookups.ToListAsync();
             var orders = await context.Orders
                 .Include(x => x.Client)
                 .Include(x => x.LeadLayer)
@@ -35,7 +36,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query.FilterOrder
             orders = orders.Where(x =>
                     (request.ClientId == Guid.Empty || x.Client.Id == request.ClientId)
                     && (!request.IsCompleted.HasValue || x.IsCompleted == request.IsCompleted.Value)
-                    && (request.LeadLawyerId == Guid.Empty || x.LeadLayer.Id == request.ClientId)
+                    && (request.LeadLawyerId == Guid.Empty || x.LeadLayer.Id == request.LeadLawyerId)
                     && (request.LawFirmInvolved == Guid.Empty || x.LawFirmInvolved.Any(x => x.LawFirm.Id == request.ClientId))
                     && (request.StartDate == null || x.StartedDate >= request.StartDate)
                     && (request.EndDate == null || x.StartedDate <= request.EndDate)
@@ -44,7 +45,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query.FilterOrder
             List<OrderViewModel> result = new List<OrderViewModel>();
             orders.ForEach(order =>
             {
-                var view = new OrderViewModel(order, mapper);
+                var view = new OrderViewModel(order, mapper, listLookups);
                 result.Add(mapper.Map(order, view));
             });
 

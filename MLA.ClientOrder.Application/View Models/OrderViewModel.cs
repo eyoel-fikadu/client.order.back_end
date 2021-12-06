@@ -32,13 +32,25 @@ namespace MLA.ClientOrder.Application.View_Models
         public DateTime StartedDate { get; set; }
 
 
-        public OrderViewModel(Orders orders, IMapper mapper) : base(orders)
+        public OrderViewModel(Orders orders, IMapper mapper, List<Lookups> mapValues) : base(orders)
         {
-            //this.LawFirmInvolved = mapper.Map<List<LawFirmDto>>(orders.LawFirmInvolved);
-            this.LawFirmInvolved = orders.LawFirmInvolved?.Select(x => new LawFirmDto(new LookupVm() { id = x.LawFirmId}, x.Role)).ToList();
-            this.CrossJudiciaries = orders.CrossJudiciaries?.Select(x => new LookupVm() { id = x.JudiciariesId, value = x.Judiciaries.Name}).ToList();
+            this.LawFirmInvolved = orders.LawFirmInvolved?
+                .Select(x => new LawFirmDto(new LookupVm() 
+                { 
+                    id = x.LawFirmId, 
+                    value = mapValues.FirstOrDefault(y => y.Id == x.LawFirmId)?.Name
+                }, x.Role))
+                .ToList();
+            this.CrossJudiciaries = orders.CrossJudiciaries?
+                .Select(x => new LookupVm() 
+                { 
+                    id = x.JudiciariesId,
+                    value = mapValues.FirstOrDefault(y => y.Id == x.JudiciariesId)?.Name
+                })
+                .ToList();
             this.LeadLayer = mapper.Map<LawyersDto>(orders.LeadLayer);
-            this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.OtherLawyers.Select(x => x.Lawyer).ToList());
+            this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.OtherLawyers.Select(x => x.Lawyer)
+                .ToList());
             this.ClientDto = new ClientDto(orders.Client);
         }
     }

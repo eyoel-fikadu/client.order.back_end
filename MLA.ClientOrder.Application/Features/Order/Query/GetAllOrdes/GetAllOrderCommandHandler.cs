@@ -31,9 +31,11 @@ namespace MLA.ClientOrder.Application.Features.Order.Query.GetAllOrdes
                 .OrderByDescending(x => x.StartedDate).ToListAsync();
 
             List<OrderViewModel> result = new List<OrderViewModel>();
+            var listLookups = await context.Lookups.ToListAsync();
+
             orders.ForEach(order =>
             {
-                var view = new OrderViewModel(order, mapper);
+                var view = new OrderViewModel(order, mapper, listLookups);
                 result.Add(mapper.Map(order, view));
             });
 

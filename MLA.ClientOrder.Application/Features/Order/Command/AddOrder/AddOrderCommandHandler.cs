@@ -28,7 +28,15 @@ namespace MLA.ClientOrder.Application.Features.Order.Command.AddOrder
             List<Lookups> lookupsList = context.Lookups.ToList();
             var order = mapper.Map<Orders>(request);
             order.LawFirmInvolved = new List<LawFirmInvolved>();
-            request?.LawFirmInvolved.ForEach(x => order.LawFirmInvolved.Add(mapper.Map<LawFirmInvolved>(x)));
+            request?.LawFirmInvolved.ForEach(x =>
+            {
+                var lookup = lookupsList.FirstOrDefault(y => y.Id == x.LawFirm.id);
+                if (lookup != null)
+                {
+                    order.LawFirmInvolved.Add(new LawFirmInvolved(lookup, x.Role));
+                }
+            });
+
             order.LeadLayer = await context.Lawyers.FindAsync(request.LeadLayerId);
             order.Client = await context.Clients.FindAsync(request.ClientId);
             var lawyers = await context.Lawyers.Where(x => request.OtherLayers.Contains(x.Id)).ToListAsync();
@@ -38,8 +46,14 @@ namespace MLA.ClientOrder.Application.Features.Order.Command.AddOrder
                 order.OtherLawyers.Add(new OtherLawyers() { Order = order, Lawyer = x });
             });
             order.CrossJudiciaries = new List<CrossJudiciaries>();
-            
-            request?.CrossJudiciaries.ForEach(x => order.CrossJudiciaries.Add(new CrossJudiciaries() { Judiciaries = lookupsList.FirstOrDefault(y => y.Id == x) }));
+
+            request?.CrossJudiciaries.ForEach(x => {
+                var lookup = lookupsList.FirstOrDefault(y => y.Id == x);
+                if (lookup != null)
+                {
+                    order.CrossJudiciaries.Add(new CrossJudiciaries() { Judiciaries = lookup });
+                }
+            }); 
             context.Orders.Add(order);
             await context.SaveChangesAsync(cancellationToken);
             return order.Id;

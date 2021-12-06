@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MLA.ClientOrder.API.Controllers.Common
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public abstract class ApiControllerBase : ControllerBase

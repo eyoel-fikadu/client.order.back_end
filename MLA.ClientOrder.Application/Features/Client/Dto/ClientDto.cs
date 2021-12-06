@@ -27,6 +27,7 @@ namespace MLA.ClientOrder.Application.Features.Client.Dto
             if (client == null) return;
             id = client.Id;
             clinet_name = client.Client_name;
+            Industry_sector = client.Industry_sector;
         }
     }
 }

@@ -38,8 +38,9 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
                     .Include(x => x.LawFirmInvolved).ThenInclude(x => x.LawFirm)
                     .FirstOrDefaultAsync(x => x.Id == request.guid);
                 if (order == null) throw new NotFoundException(nameof(Orders), request.guid);
+                var listLookups = await context.Lookups.ToListAsync();
 
-                var view = new OrderViewModel(order, mapper);
+                var view = new OrderViewModel(order, mapper, listLookups);
                 mapper.Map(order, view);
                 return view;
             }

@@ -40,9 +40,11 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
                     .Include(x => x.LawFirmInvolved).ThenInclude(x => x.LawFirm)
                     .Where(x => x.Client.Id == request.guid).ToListAsync();
                 var result = new List<OrderViewModel>();
+                var listLookups = await context.Lookups.ToListAsync();
+
                 orders.ForEach(order =>
                 {
-                    var view = new OrderViewModel(order, mapper);
+                    var view = new OrderViewModel(order, mapper, listLookups);
                     result.Add(mapper.Map(order, view));
                 });
                 
