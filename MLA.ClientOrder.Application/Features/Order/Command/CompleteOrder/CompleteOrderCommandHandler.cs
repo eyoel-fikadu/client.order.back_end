@@ -24,6 +24,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Command.CompleteOrder
             {
                 throw new NotFoundException(nameof(Orders), request.id);
             }
+            entity.ProjectStatus = "Completed";
             entity.CompletedDate = request.completedDate;
             entity.IsCompleted = true;
             _context.Orders.Update(entity);
