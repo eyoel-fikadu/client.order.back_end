@@ -49,7 +49,7 @@ namespace MLA.ClientOrder.Application.View_Models
                 })
                 .ToList();
             this.LeadLayer = mapper.Map<LawyersDto>(orders.LeadLayer);
-            this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.OtherLawyers.Select(x => x.Lawyer)
+            this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.AdditionalLawyers.Select(x => x.Lawyers)
                 .ToList());
             this.ClientDto = new ClientDto(orders.Client);
         }

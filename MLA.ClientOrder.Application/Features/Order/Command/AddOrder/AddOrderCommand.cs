@@ -35,7 +35,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Command
             profile.CreateMap<AddOrderCommand, Orders>()
                 .ForMember(d => d.CrossJudiciaries, opt => opt.Ignore())
                 .ForMember(d => d.LeadLayer, opt => opt.Ignore())
-                .ForMember(d => d.OtherLawyers, opt => opt.Ignore())
+                .ForMember(d => d.AdditionalLawyers, opt => opt.Ignore())
                 .ForMember(d => d.LawFirmInvolved, opt => opt.Ignore());
         }
     }

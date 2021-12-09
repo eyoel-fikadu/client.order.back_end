@@ -47,10 +47,10 @@ namespace MLA.ClientOrder.Application.Features.Order.Command.UpdateOrder
             entity.LeadLayer = await _context.Lawyers.FindAsync(request.LeadLayerId);
             entity.Client = await _context.Clients.FindAsync(request.ClientId);
             var lawyers = await _context.Lawyers.Where(x => request.OtherLayers.Contains(x.Id)).ToListAsync();
-            entity.OtherLawyers = new List<OtherLawyers>();
+            entity.AdditionalLawyers = new List<AdditionalLawyers>();
             lawyers.ForEach(x =>
             {
-                entity.OtherLawyers.Add(new OtherLawyers() { Order = entity, Lawyer = x });
+                entity.AdditionalLawyers.Add(new AdditionalLawyers() { Lawyers = x });
             });
             entity.CrossJudiciaries = new List<CrossJudiciaries>();
 

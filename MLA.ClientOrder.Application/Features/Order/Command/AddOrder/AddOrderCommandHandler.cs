@@ -40,10 +40,10 @@ namespace MLA.ClientOrder.Application.Features.Order.Command.AddOrder
             order.LeadLayer = await context.Lawyers.FindAsync(request.LeadLayerId);
             order.Client = await context.Clients.FindAsync(request.ClientId);
             var lawyers = await context.Lawyers.Where(x => request.OtherLayers.Contains(x.Id)).ToListAsync();
-            order.OtherLawyers = new List<OtherLawyers>();
+            order.AdditionalLawyers = new List<AdditionalLawyers>();
             lawyers.ForEach(x =>
             {
-                order.OtherLawyers.Add(new OtherLawyers() { Order = order, Lawyer = x });
+                order.AdditionalLawyers.Add(new AdditionalLawyers() { Lawyers = x });
             });
             order.CrossJudiciaries = new List<CrossJudiciaries>();
 

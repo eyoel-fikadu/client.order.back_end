@@ -15,6 +15,7 @@ namespace MLA.OrderManagement.Infrustructure.Persistance.Configuration
         {
             builder.OwnsMany(b => b.LawFirmInvolved);
             builder.OwnsMany(b => b.CrossJudiciaries);
+            builder.OwnsMany(b => b.AdditionalLawyers);
         }
     }
 }

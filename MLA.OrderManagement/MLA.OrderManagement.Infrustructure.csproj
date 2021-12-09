@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="HttpRequest\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

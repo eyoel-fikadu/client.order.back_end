@@ -13,11 +13,11 @@ namespace MLA.ClientOrder.Domain.Entities
         public string OrderId { get; set; }
         public string IdustrySector { get; set; }
         public Lawyers LeadLayer { get; set; }
-        public List<OtherLawyers> OtherLawyers { get; set; }
         public bool IsLawFirmInvolved { get; set; }
         public bool CroossJudiciaryExistt { get; set; }
         public List<LawFirmInvolved> LawFirmInvolved { get; set; }
         public List<CrossJudiciaries> CrossJudiciaries { get; set; }
+        public List<AdditionalLawyers> AdditionalLawyers { get; set; }
         public string TransactionType { get; set; }
         public string TransactionDescription { get; set; }
         public string MatterDescription { get; set; }

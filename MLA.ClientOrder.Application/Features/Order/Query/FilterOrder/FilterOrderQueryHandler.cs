@@ -27,7 +27,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query.FilterOrder
             var orders = await context.Orders
                 .Include(x => x.Client)
                 .Include(x => x.LeadLayer)
-                .Include(x => x.OtherLawyers).ThenInclude(x => x.Lawyer)
+                .Include(x => x.AdditionalLawyers).ThenInclude(x => x.Lawyers)
                 .Include(x => x.CrossJudiciaries).ThenInclude(x => x.Judiciaries)
                 .Include(x => x.LawFirmInvolved).ThenInclude(x => x.LawFirm)
                 .OrderByDescending(x => x.StartedDate)

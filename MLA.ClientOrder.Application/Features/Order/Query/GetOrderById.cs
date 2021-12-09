@@ -33,7 +33,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
                 var order = await context.Orders
                     .Include(x => x.Client)
                     .Include(x => x.LeadLayer)
-                    .Include(x => x.OtherLawyers)
+                    .Include(x => x.AdditionalLawyers)
                     .Include(x => x.CrossJudiciaries).ThenInclude(x => x.Judiciaries)
                     .Include(x => x.LawFirmInvolved).ThenInclude(x => x.LawFirm)
                     .FirstOrDefaultAsync(x => x.Id == request.guid);
