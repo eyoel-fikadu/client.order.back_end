@@ -100,7 +100,7 @@ namespace MLA.OrderManagement.Infrustructure.Identity
                     Id = user.Id,
                     UserName = userId,
                     Email = user.Email,
-                    Roles = new System.Collections.Generic.List<string>() { "Administrator" }
+                    Roles = new System.Collections.Generic.List<string>() { "Administrator"}
                 };
                 userView.token = _tokenService.BuildToken(userView);
                 return userView;

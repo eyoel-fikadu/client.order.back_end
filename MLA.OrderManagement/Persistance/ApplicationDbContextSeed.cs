@@ -19,6 +19,12 @@ namespace MLA.OrderManagement.Infrustructure.Persistance
                 await roleManager.CreateAsync(administratorRole);
             }
 
+            var userRole = new IdentityRole("User");
+
+            if (roleManager.Roles.All(r => r.Name != userRole.Name))
+            {
+                await roleManager.CreateAsync(userRole);
+            }
             var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost" };
 
             if (userManager.Users.All(u => u.UserName != administrator.UserName))

@@ -16,6 +16,22 @@ namespace MLA.ClientOrder.Application.Features.Layer.Dto
         public string lastName { get; set; }
         public string role { get; set; }
 
+        public LawyersDto()
+        {
+        }
+
+        public LawyersDto(Guid id, Lawyers lawyers)
+        {
+            this.id = id;
+            if(lawyers != null)
+            {
+                this.firstName = lawyers.FirstName;
+                this.lastName = lawyers.LastName;
+                this.role = lawyers.Role;
+            }
+            
+        }
+
         public void Mappings(Profile profile)
         {
             profile.CreateMap<LawyersDto, Lawyers>();

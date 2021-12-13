@@ -24,6 +24,8 @@ namespace MLA.ClientOrder.Application.Features.Order.Command
         public string MatterDescription { get; set; }
         public double TransactionValue { get; set; }
         public bool IsConfidential { get; set; }
+        public string Currency { get; set; }
+        public bool IsTransaction { get; set; }
         public string ProjectStatus { get; set; }
         public string Remark { get; set; }
         public bool IsCompleted { get; set; }

@@ -44,7 +44,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
 
                 orders.ForEach(order =>
                 {
-                    var view = new OrderViewModel(order, mapper, listLookups);
+                    var view = new OrderViewModel(order, mapper, listLookups, context.Lawyers.ToList());
                     result.Add(mapper.Map(order, view));
                 });
                 

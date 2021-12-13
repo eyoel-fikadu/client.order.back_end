@@ -36,13 +36,20 @@ namespace MLA.OrderManagement.Infrustructure
             services
                 .AddDefaultIdentity<ApplicationUser>(options =>
                 {
+                    //TODO: un commented if the UI allows so
                     //password settings
-                    options.Password.RequireDigit = true;
-                    options.Password.RequireLowercase = true;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = true;
-                    options.Password.RequiredLength = 6;
-                    //options.Password.RequiredUniqueChars = 2;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 4;
+                    //options.Password.RequiredUniqueChars = 0;
+                    //options.Password.RequireDigit = true;
+                    //options.Password.RequireLowercase = true;
+                    //options.Password.RequireNonAlphanumeric = false;
+                    //options.Password.RequireUppercase = true;
+                    //options.Password.RequiredLength = 6;
+                    ////options.Password.RequiredUniqueChars = 2;
 
                     // Lockout settings.
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);

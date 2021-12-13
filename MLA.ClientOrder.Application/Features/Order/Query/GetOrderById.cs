@@ -6,6 +6,7 @@ using MLA.ClientOrder.Application.Common.Exceptions;
 using MLA.ClientOrder.Application.View_Models;
 using MLA.ClientOrder.Domain.Entities;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,7 +41,7 @@ namespace MLA.ClientOrder.Application.Features.Order.Query
                 if (order == null) throw new NotFoundException(nameof(Orders), request.guid);
                 var listLookups = await context.Lookups.ToListAsync();
 
-                var view = new OrderViewModel(order, mapper, listLookups);
+                var view = new OrderViewModel(order, mapper, listLookups, context.Lawyers.ToList());
                 mapper.Map(order, view);
                 return view;
             }

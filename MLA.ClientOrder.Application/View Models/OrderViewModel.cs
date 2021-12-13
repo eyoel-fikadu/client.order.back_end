@@ -26,13 +26,15 @@ namespace MLA.ClientOrder.Application.View_Models
         public string MatterDescription { get; set; }
         public double TransactionValue { get; set; }
         public bool IsConfidential { get; set; }
+        public string Currency { get; set; }
+        public bool IsTransaction { get; set; }
         public string ProjectStatus { get; set; }
         public string Remark { get; set; }
         public DateTime CompletedDate { get; set; }
         public DateTime StartedDate { get; set; }
 
 
-        public OrderViewModel(Orders orders, IMapper mapper, List<Lookups> mapValues) : base(orders)
+        public OrderViewModel(Orders orders, IMapper mapper, List<Lookups> mapValues, List<Lawyers> lawyers) : base(orders)
         {
             this.LawFirmInvolved = orders.LawFirmInvolved?
                 .Select(x => new LawFirmDto(new LookupVm() 
@@ -48,9 +50,11 @@ namespace MLA.ClientOrder.Application.View_Models
                     value = mapValues.FirstOrDefault(y => y.Id == x.JudiciariesId)?.Name
                 })
                 .ToList();
+            this.OtherLayers = orders.AdditionalLawyers?
+                .Select(x => new LawyersDto(x.LawyersId, lawyers.FirstOrDefault(y => y.Id == x.LawyersId)))
+                .ToList();
             this.LeadLayer = mapper.Map<LawyersDto>(orders.LeadLayer);
-            this.OtherLayers = mapper.Map<List<LawyersDto>>(orders.AdditionalLawyers.Select(x => x.Lawyers)
-                .ToList());
+            
             this.ClientDto = new ClientDto(orders.Client);
         }
     }
