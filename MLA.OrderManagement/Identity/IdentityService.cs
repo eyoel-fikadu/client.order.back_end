@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MLA.ClientOrder.Application.Common.Abstraction;
+using MLA.ClientOrder.Application.Common.Exceptions;
 using MLA.ClientOrder.Application.Features.User.ViewModel;
 using MLA.ClientOrder.Application.Model;
 using System;
@@ -90,8 +91,9 @@ namespace MLA.OrderManagement.Infrustructure.Identity
         public async Task<UserViewModel> AuthorizeUserAsync(string userId, string password)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == userId);
-
+            if (user == null) throw new UnauthorizedAccessException();
             var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+
             if(result.Succeeded)
             {
                 //var roles = await _roleManager.Roles.

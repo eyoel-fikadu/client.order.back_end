@@ -7,5 +7,6 @@ namespace MLA.ClientOrder.Application.Common.Abstraction
     public interface IDapperContext
     {
         public Task<List<OrderDbModel>> GetOrders();
+        public Task<List<LawyerModelDto>> GetLawyers();
     }
 }

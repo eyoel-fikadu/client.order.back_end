@@ -45,7 +45,7 @@ namespace MLA.OrderManagement.Infrustructure.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claims,
-                Expires = DateTime.Now.AddSeconds(GetTokenExpiry()),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = credentials,
                 Issuer = ConfigurationManager.AppSettings["Jwt:Issuer"],
                 IssuedAt = DateTime.Now

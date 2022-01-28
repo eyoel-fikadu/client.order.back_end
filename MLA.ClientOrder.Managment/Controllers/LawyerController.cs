@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MLA.ClientOrder.API.Controllers.Common;
+using MLA.ClientOrder.Application.Features.Lawyer.Command;
 using MLA.ClientOrder.Application.Features.Layer.Command;
 using MLA.ClientOrder.Application.Features.Layer.Dto;
 using MLA.ClientOrder.Application.Features.Layer.Query;
@@ -28,6 +29,12 @@ namespace MLA.ClientOrder.API.Controllers
         public async Task<ActionResult<Guid>> Create(AddLawyerCommand command)
         {
             return await Mediator.Send(command);
+        }
+
+        [HttpGet("UpdateLawyerTable")]
+        public async Task<ActionResult<bool>> UpdateLawyerFromExsitingDb()
+        {
+            return await Mediator.Send(new UpdateLawyerTableCommand());
         }
     }
 }

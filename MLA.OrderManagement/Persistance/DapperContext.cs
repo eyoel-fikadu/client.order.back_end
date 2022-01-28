@@ -20,6 +20,13 @@ namespace MLA.OrderManagement.Infrustructure.Persistance
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        public async Task<List<LawyerModelDto>> GetLawyers()
+        {
+            var query = "SELECT * From [dbo].[Employee]";
+            var lawyers = await _connection.GetOpenConnection().QueryAsync<LawyerModelDto>(query);
+            return lawyers.ToList();
+        }
+
         public async Task<List<OrderDbModel>> GetOrders()
         {
             var query = "SELECT [MlA_Order_Number] 'OrderId' ,[Clients] 'ClientName' ,[Matter] 'Matter' " +
